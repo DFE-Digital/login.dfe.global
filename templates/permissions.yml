@@ -35,6 +35,6 @@ jobs:
         $kvName = '${{parameters.projectIdentifier}}${{parameters.environmentId}}-signin-global-kv'
         $globalRg = '${{parameters.projectIdentifier}}${{parameters.environmentId}}-signin-global'
 
-        write-host adding kv policy for service connection (object id ${{parameters.serviceConnectionObjectId}})
+        write-host 'adding kv policy for service connection - object id ${{parameters.serviceConnectionObjectId}}'
         write-host using kv : $kvName in rg : $globalRg
         az keyvault set-policy --name $kvName --object-id ${{parameters.serviceConnectionObjectId}} --certificate-permissions get getissuers list listissuers --secret-permissions get list
