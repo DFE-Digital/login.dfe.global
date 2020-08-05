@@ -29,6 +29,8 @@ jobs:
   - checkout: self
   - pwsh: Get-ChildItem -Path $env:PIPELINE_WORKSPACE -Recurse
     displayName: (DEBUG) Test List Files
+  - pwsh: Get-ChildItem -Path $env:BUILD_REPOSITORY_LOCALPATH -Recurse
+    displayName: (DEBUG) Test Repo Path
   - template: /Infrastructure/steps/deploy-template.yml@devopsTemplates
     parameters:
       serviceConnection: ${{parameters.serviceConnection}}
