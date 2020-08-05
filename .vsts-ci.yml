@@ -50,6 +50,25 @@ stages:
       serviceConnectionApplicationId: $(testServiceConnectionApplicationId)
       environmentId: 't01'
       environmentName: 'test'
+
+
+- stage: deployInt
+  displayName: Deploy INT Global - ARM Variant
+  jobs:
+  - template: templates/deploy.yml
+    parameters:
+      serviceConnection: $(testServiceConnection)
+      subscriptionId: $(testSubscriptionId)
+      tenantId: $(tenantId)
+      environmentId: 't03'
+      environmentName: 'int'
+  - template: templates/permissions.yml
+    parameters:
+      dependencyName: deployGlobaltest
+      serviceConnection: $(testServiceConnection)
+      serviceConnectionApplicationId: $(testServiceConnectionApplicationId)
+      environmentId: 't03'
+      environmentName: 'int'
   
 
     
