@@ -17,6 +17,7 @@ parameters:
 jobs:
 - job: permissions_${{parameters.environmentName}}
   displayName: Set Post Deploy Permissions
+  dependsOn: ${{parameters.dependencyName}}
   pool:
     vmImage: ubuntu-latest
   variables:
