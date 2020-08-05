@@ -41,6 +41,6 @@ jobs:
         $spArray = az ad sp list --filter "appId eq '${{parameters.serviceConnectionApplicationId}}'" | ConvertFrom-Json
         $sp = $spArray[0] 
 
-        write-host 'adding kv policy for service connection - application id $sp.appId'
+        write-host 'adding kv policy for service connection - application id $($sp.appId)'
         write-host using kv : $kvName in rg : $globalRg
         az keyvault set-policy --name $kvName --spn $sp.appId --certificate-permissions get getissuers list listissuers --secret-permissions get list
