@@ -17,7 +17,7 @@ parameters:
   default: westeurope
 
 jobs:
-- job: deploy_${{parameters.environmentName}}
+  deployment: deployGlobal${{parameters.environmentName}}
   displayName: Deploy From Templates
   pool:
     vmImage: ubuntu-latest
@@ -25,38 +25,26 @@ jobs:
     resourceGroupName: ${{parameters.projectIdentifier}}${{parameters.environmentId}}-$(globalName)-$(globalSuffix)
     globalName: signin
     globalSuffix: global
-  steps:
-  - checkout: self
-  # - pwsh: Get-ChildItem -Path $env:PIPELINE_WORKSPACE -Recurse
-  #   displayName: (DEBUG) Test List Files
-  # - pwsh: Get-ChildItem -Path $env:BUILD_REPOSITORY_LOCALPATH/$env:BUILD_REPOSITORY_NAME -Recurse
-  #   displayName: (DEBUG) Test Repo Path
-  - template: /Infrastructure/steps/deploy-template.yml@devopsTemplates
-    parameters:
-      serviceConnection: ${{parameters.serviceConnection}}
-      subscriptionId: ${{parameters.subscriptionId}}
-      resourceGroupName: $(resourceGroupName)
-      location: ${{parameters.deploymentLocation}}
-      templateFilePath: $(Build.Repository.LocalPath)/login.dfe.global/arm/storage.json
-      armParameterOverrideString: ' -skuName "Standard_LRS" -environmentId "${{parameters.environmentId}}"'
-      processOutputs: false
-  - template: /Infrastructure/steps/deploy-template.yml@devopsTemplates
-    parameters:
-      serviceConnection: ${{parameters.serviceConnection}}
-      subscriptionId: ${{parameters.subscriptionId}}
-      resourceGroupName: $(resourceGroupName)
-      location: ${{parameters.deploymentLocation}}
-      templateFilePath: $(Build.Repository.LocalPath)/login.dfe.global/arm/keyvault.json
-      armParameterOverrideString: ' -environmentId "${{parameters.environmentId}}" -tenantId "${{parameters.tenantId}}" -skuName "Standard"'
-      processOutputs: false
-  # - task: AzureCLI@2
-  #   name: postDeploy
-  #   displayName: Post Deploy
-  #   inputs:
-  #     azureSubscription: ${{parameters.serviceConnection}}
-  #     scriptType: pscore
-  #     scriptLocation: inlineScript
-  #     inlineScript: |
-  #       $azAccount = az account show | ConvertFrom-Json
-  #       write-host $azAccount
-  #       write-host Id is : $azAccount.id
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        - checkout: self
+        - template: /Infrastructure/steps/deploy-template.yml@devopsTemplates
+          parameters:
+            serviceConnection: ${{parameters.serviceConnection}}
+            subscriptionId: ${{parameters.subscriptionId}}
+            resourceGroupName: $(resourceGroupName)
+            location: ${{parameters.deploymentLocation}}
+            templateFilePath: $(Build.Repository.LocalPath)/login.dfe.global/arm/storage.json
+            armParameterOverrideString: ' -skuName "Standard_LRS" -environmentId "${{parameters.environmentId}}"'
+            processOutputs: false
+        - template: /Infrastructure/steps/deploy-template.yml@devopsTemplates
+          parameters:
+            serviceConnection: ${{parameters.serviceConnection}}
+            subscriptionId: ${{parameters.subscriptionId}}
+            resourceGroupName: $(resourceGroupName)
+            location: ${{parameters.deploymentLocation}}
+            templateFilePath: $(Build.Repository.LocalPath)/login.dfe.global/arm/keyvault.json
+            armParameterOverrideString: ' -environmentId "${{parameters.environmentId}}" -tenantId "${{parameters.tenantId}}" -skuName "Standard"'
+            processOutputs: false

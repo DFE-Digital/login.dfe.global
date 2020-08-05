@@ -27,7 +27,7 @@ stages:
       environmentName: 'dev'
   - template: templates/permissions.yml
     parameters:
-      dependencyName: deploy_dev
+      dependencyName: deployGlobaldev
       serviceConnection: $(devServiceConnection)
       serviceConnectionObjectId: $(devServiceConnectionObjectId)
       environmentId: 'd01'
@@ -45,7 +45,7 @@ stages:
       environmentName: 'test'
   - template: templates/permissions.yml
     parameters:
-      dependencyName: deploy_test
+      dependencyName: deployGlobaltest
       serviceConnection: $(testServiceConnection)
       serviceConnectionObjectId: $(testServiceConnectionObjectId)
       environmentId: 't01'
