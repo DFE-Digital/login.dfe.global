@@ -26,6 +26,8 @@ jobs:
     globalName: signin
     globalSuffix: global
   steps:
+  - pwsh: Get-ChildItem -Path $env:PIPELINE_WORKSPACE -Recurse
+    displayName: (DEBUG) Test List Files
   - template: /Infrastructure/steps/deploy-template.yml@devopsTemplates
     parameters:
       serviceConnection: ${{parameters.serviceConnection}}
