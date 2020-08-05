@@ -32,11 +32,8 @@ jobs:
       scriptType: pscore
       scriptLocation: inlineScript
       inlineScript: |
-        $kvName = ${{parameters.projectIdentifier}}${{parameters.environmentId}}-signin-global-kv
-        $globalRg = ${{parameters.projectIdentifier}}${{parameters.environmentId}}-signin-global
-
-        //write-host getting service connection app registration
-        //$scApp = az ad app show --id ${{parameters.serviceConnectionObjectId}}
+        $kvName = '${{parameters.projectIdentifier}}${{parameters.environmentId}}-signin-global-kv'
+        $globalRg = '${{parameters.projectIdentifier}}${{parameters.environmentId}}-signin-global'
 
         write-host adding kv policy for service connection (object id ${{parameters.serviceConnectionObjectId}})
         write-host using kv : $kvName in rg : $globalRg
