@@ -27,7 +27,7 @@ jobs:
   steps:
   - task: AzureCLI@2
     name: postDeploy
-    displayName: Post Deploy Cli
+    displayName: Add Service Connection SP to KV Access Policy
     inputs:
       azureSubscription: ${{parameters.serviceConnection}}
       scriptType: pscore
