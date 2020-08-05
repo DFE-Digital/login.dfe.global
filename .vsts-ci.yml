@@ -64,7 +64,7 @@ stages:
       environmentName: 'int'
   - template: templates/permissions.yml
     parameters:
-      dependencyName: deployGlobaltest
+      dependencyName: deployGlobalint
       serviceConnection: $(testServiceConnection)
       serviceConnectionApplicationId: $(testServiceConnectionApplicationId)
       environmentId: 't03'
