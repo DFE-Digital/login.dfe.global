@@ -27,17 +27,17 @@ jobs:
     globalSuffix: global
   steps:
   - checkout: self
-  - pwsh: Get-ChildItem -Path $env:PIPELINE_WORKSPACE -Recurse
-    displayName: (DEBUG) Test List Files
-  - pwsh: Get-ChildItem -Path $env:BUILD_REPOSITORY_LOCALPATH -Recurse
-    displayName: (DEBUG) Test Repo Path
+  # - pwsh: Get-ChildItem -Path $env:PIPELINE_WORKSPACE -Recurse
+  #   displayName: (DEBUG) Test List Files
+  # - pwsh: Get-ChildItem -Path $env:BUILD_REPOSITORY_LOCALPATH -Recurse
+  #   displayName: (DEBUG) Test Repo Path
   - template: /Infrastructure/steps/deploy-template.yml@devopsTemplates
     parameters:
       serviceConnection: ${{parameters.serviceConnection}}
       subscriptionId: ${{parameters.subscriptionId}}
       resourceGroupName: $(resourceGroupName)
       location: ${{parameters.deploymentLocation}}
-      templateFilePath: $(Build.Repository.LocalPath)/arm/storage.json
+      templateFilePath: $(Build.Repository.LocalPath)/$(Build.Repository.Name)/arm/storage.json
       armParameterOverrideString: ' -skuName "Standard_LRS" -environmentId "${{parameters.environmentId}}"'
       processOutputs: false
   - template: /Infrastructure/steps/deploy-template.yml@devopsTemplates
@@ -46,7 +46,7 @@ jobs:
       subscriptionId: ${{parameters.subscriptionId}}
       resourceGroupName: $(resourceGroupName)
       location: ${{parameters.deploymentLocation}}
-      templateFilePath: $(Build.Repository.LocalPath)/arm/keyvault.json
+      templateFilePath: $(Build.Repository.LocalPath)/$(Build.Repository.Name)/arm/keyvault.json
       armParameterOverrideString: ' -environmentId "${{parameters.environmentId}}" -tenantId "${{parameters.tenantId}}" -skuName "Standard"'
       processOutputs: false
   # - task: AzureCLI@2
