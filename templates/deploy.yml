@@ -17,7 +17,7 @@ parameters:
   default: westeurope
 
 jobs:
-  deployment: deployGlobal${{parameters.environmentName}}
+- deployment: deployGlobal${{parameters.environmentName}}
   displayName: Deploy From Templates
   pool:
     vmImage: ubuntu-latest
