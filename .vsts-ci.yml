@@ -29,7 +29,7 @@ stages:
     parameters:
       dependencyName: deployGlobaldev
       serviceConnection: $(devServiceConnection)
-      serviceConnectionObjectId: $(devServiceConnectionObjectId)
+      serviceConnectionApplicationId: $(devServiceConnectionApplicationId)
       environmentId: 'd01'
       environmentName: 'dev'
 
@@ -47,7 +47,7 @@ stages:
     parameters:
       dependencyName: deployGlobaltest
       serviceConnection: $(testServiceConnection)
-      serviceConnectionObjectId: $(testServiceConnectionObjectId)
+      serviceConnectionApplicationId: $(testServiceConnectionApplicationId)
       environmentId: 't01'
       environmentName: 'test'
   

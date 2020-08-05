@@ -3,7 +3,7 @@ parameters:
   type: string
 - name: serviceConnection
   type: string
-- name: serviceConnectionObjectId
+- name: serviceConnectionApplicationId
   type: string
 - name: projectIdentifier
   type: string
@@ -36,6 +36,11 @@ jobs:
         $kvName = '${{parameters.projectIdentifier}}${{parameters.environmentId}}-signin-global-kv'
         $globalRg = '${{parameters.projectIdentifier}}${{parameters.environmentId}}-signin-global'
 
-        write-host 'adding kv policy for service connection - object id ${{parameters.serviceConnectionObjectId}}'
+        write-host 'getting sp for service connection'
+
+        $spArray = az ad sp list --filter "appId eq '${{parameters.serviceConnectionApplicationId}}'" | ConvertFrom-Json
+        $sp = $spArray[0] 
+
+        write-host 'adding kv policy for service connection - application id $sp.appId'
         write-host using kv : $kvName in rg : $globalRg
-        az keyvault set-policy --name $kvName --object-id ${{parameters.serviceConnectionObjectId}} --certificate-permissions get getissuers list listissuers --secret-permissions get list
+        az keyvault set-policy --name $kvName --object-id $sp.appId --certificate-permissions get getissuers list listissuers --secret-permissions get list
