@@ -1,0 +1,79 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "projectIdentifier": {
+            "type": "string",
+            "defaultValue": "s141",
+            "metadata": {
+                "description": "DfE Project Identifier"
+            }
+        },
+        "environmentId": {
+            "type": "string",
+            "allowedValues": [
+                "d01",
+                "t01",
+                "t02",
+                "p01",
+                "p02"
+            ],
+            "metadata": {
+                "description": "DfE Project EnvironmentId"
+            }
+        },
+        "globalName": {
+            "type": "string",
+            "defaultValue": "signin",
+            "metadata": {
+                "description": "Global Project Identifier"
+            }
+        },
+        "globalSuffix": {
+            "type": "string",
+            "defaultValue": "global",
+            "metadata": {
+                "description": "Global Project Suffix"
+            }
+        },
+        "skuName": {
+            "type": "string",
+            "defaultValue": "Standard_LRS",
+            "allowedValues": [
+                "Standard_LRS",
+                "Standard_ZRS",
+                "Standard_GRS",
+                "Standard_RAGRS",
+                "Premium_LRS"
+            ],
+            "metadata": {
+                "description": "SKU Name"
+            }
+        }
+    },
+    "variables": {
+        "baseName": "[tolower(concat(parameters('projectIdentifier'), parameters('environmentId'), '-', parameters('globalName'), '-', parameters('globalSuffix')))]",
+        "resourceName": "[replace(variables('baseName'), '-', '')]",
+        "resourceId": "[resourceId('Microsoft.Storage/storageAccounts', variables('resourceName'))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "[parameters('skuName')]"
+            },
+            "kind": "Storage",
+            "name": "[variables('resourceName')]",
+            "apiVersion": "2018-07-01",
+            "tags": {
+            }
+        }
+    ],
+    "outputs": {
+        "resourceId": {
+            "type": "string",
+            "value": "[variables('resourceId')]"
+        }
+    }
+}

@@ -1,0 +1,43 @@
+parameters:
+- name: dependencyName
+  type: string
+- name: serviceConnection
+  type: string
+- name: serviceConnectionObjectId
+  type: string
+- name: projectIdentifier
+  type: string
+  default: 's141'
+- name: environmentId
+  type: string
+- name: environmentName
+  type: string
+
+
+jobs:
+- job: permissions_${{parameters.environmentName}}
+  displayName: Set Post Deploy Permissions
+  pool:
+    vmImage: ubuntu-latest
+  variables:
+    resourceGroupName: ${{parameters.projectIdentifier}}${{parameters.environmentId}}-$(globalName)-$(globalSuffix)
+    globalName: signin
+    globalSuffix: global
+  steps:
+  - task: AzureCLI@2
+    name: postDeploy
+    displayName: Post Deploy Cli
+    inputs:
+      azureSubscription: ${{parameters.serviceConnection}}
+      scriptType: pscore
+      scriptLocation: inlineScript
+      inlineScript: |
+        $kvName = ${{parameters.projectIdentifier}}${{parameters.environmentId}}-signin-global-kv
+        $globalRg = ${{parameters.projectIdentifier}}${{parameters.environmentId}}-signin-global
+
+        //write-host getting service connection app registration
+        //$scApp = az ad app show --id ${{parameters.serviceConnectionObjectId}}
+
+        write-host adding kv policy for service connection (object id ${{parameters.serviceConnectionObjectId}})
+        write-host using kv : $kvName in rg : $globalRg
+        az keyvault set-policy --name $kvName --object-id ${{parameters.serviceConnectionObjectId}} --certificate-permissions get getissuers list listissuers --secret-permissions get list

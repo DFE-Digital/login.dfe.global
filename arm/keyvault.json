@@ -1,0 +1,113 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "projectIdentifier": {
+            "type": "string",
+            "defaultValue": "s141",
+            "metadata": {
+                "description": "DfE Project Identifier"
+            }
+        },
+        "environmentId": {
+            "type": "string",
+            "allowedValues": [
+                "d01",
+                "t01",
+                "t02",
+                "p01",
+                "p02"
+            ],
+            "metadata": {
+                "description": "DfE Project EnvironmentId"
+            }
+        },
+        "globalName": {
+            "type": "string",
+            "defaultValue": "signin",
+            "metadata": {
+                "description": "Global Project Identifier"
+            }
+        },
+        "globalSuffix": {
+            "type": "string",
+            "defaultValue": "global",
+            "metadata": {
+                "description": "Global Project Suffix"
+            }
+        },
+        "skuName": {
+            "type": "string",
+            "defaultValue": "Standard",
+            "allowedValues": [
+                "Standard",
+                "Premium"
+            ],
+            "metadata": {
+                "description": "SKU Name"
+            }
+        },
+        "enableSoftDelete": {
+            "type": "bool",
+            "defaultValue": true,
+            "allowedValues": [
+                true,
+                false
+            ],
+            "metadata": {
+                "description": "Enable Soft Delete"
+            }
+        },
+        "enablePurgeProtection": {
+            "type": "bool",
+            "defaultValue": true,
+            "allowedValues": [
+                true,
+                false
+            ],
+            "metadata": {
+                "description": "Enable Purge Protection for Soft Delete"
+            }
+        },
+        "tenantId": {
+            "type": "string",
+            "metadata": {
+                "description": "Azure Tenant Id"
+            }
+        }
+    },
+    "variables": {
+        "baseName": "[tolower(concat(parameters('projectIdentifier'), parameters('environmentId'), '-', parameters('globalName'), '-', parameters('globalSuffix')))]",
+        "resourceName": "[concat(variables('baseName'),'-kv')]",
+        "resourceId": "[resourceId('Microsoft.Storage/storageAccounts', variables('resourceName'))]"
+    },
+    "resources": [
+        {
+            "name": "[variables('resourceName')]",
+            "type": "Microsoft.KeyVault/vaults",
+            "apiVersion": "2016-10-01",
+            "location": "[resourceGroup().location]",
+            "tags": {},
+            "properties": {
+                "tenantId": "[parameters('tenantId')]",
+                "sku": {
+                    "family": "A",
+                    "name": "[parameters('skuName')]"
+                },
+                "accessPolicies":[],
+                "enabledForDeployment": true,
+                "enabledForDiskEncryption": true,
+                "enabledForTemplateDeployment": true,
+                "enableSoftDelete": "[parameters('enableSoftDelete')]",
+                "enablePurgeProtection": "[parameters('enablePurgeProtection')]"
+            },
+            "resources": []
+        }
+    ],
+    "outputs": {
+        "resourceId": {
+            "type": "string",
+            "value": "[variables('resourceId')]"
+        }
+    }
+}
