@@ -19,6 +19,7 @@ parameters:
 jobs:
 - deployment: deployGlobal${{parameters.environmentName}}
   displayName: Deploy From Templates
+  environment: '${{parameters.environmentName}}'
   pool:
     vmImage: ubuntu-latest
   variables:
