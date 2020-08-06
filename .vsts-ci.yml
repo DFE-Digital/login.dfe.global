@@ -69,6 +69,24 @@ stages:
       serviceConnectionApplicationId: $(testServiceConnectionApplicationId)
       environmentId: 't03'
       environmentName: 'int'
-  
+
+- stage: deployPp
+  displayName: Deploy PP Global - ARM Variant
+  jobs:
+  - template: templates/deploy.yml
+    parameters:
+      serviceConnection: $(testServiceConnection)
+      subscriptionId: $(testSubscriptionId)
+      tenantId: $(tenantId)
+      environmentId: 't02'
+      environmentName: 'pp'
+  - template: templates/permissions.yml
+    parameters:
+      dependencyName: deployGlobalpp
+      serviceConnection: $(testServiceConnection)
+      serviceConnectionApplicationId: $(testServiceConnectionApplicationId)
+      environmentId: 't02'
+      environmentName: 'pp'
+
 
     
