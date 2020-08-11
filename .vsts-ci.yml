@@ -100,7 +100,7 @@ stages:
       environmentName: 'pr'
   - template: templates/permissions.yml
     parameters:
-      dependencyName: deployGlobalpp
+      dependencyName: deployGlobalpr
       serviceConnection: $(prodServiceConnection)
       serviceConnectionApplicationId: $(prodServiceConnectionApplicationId)
       environmentId: 'p01'
