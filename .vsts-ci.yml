@@ -88,5 +88,23 @@ stages:
       environmentId: 't02'
       environmentName: 'pp'
 
+- stage: deployPr
+  displayName: Deploy PR` Global - ARM Variant
+  jobs:
+  - template: templates/deploy.yml
+    parameters:
+      serviceConnection: $(prodServiceConnection)
+      subscriptionId: $(prodSubscriptionId)
+      tenantId: $(tenantId)
+      environmentId: 'p01'
+      environmentName: 'pr'
+  - template: templates/permissions.yml
+    parameters:
+      dependencyName: deployGlobalpp
+      serviceConnection: $(prodServiceConnection)
+      serviceConnectionApplicationId: $(prodServiceConnectionApplicationId)
+      environmentId: 'p01'
+      environmentName: 'pr'
+
 
     
