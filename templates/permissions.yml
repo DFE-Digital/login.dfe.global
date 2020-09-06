@@ -45,7 +45,7 @@ jobs:
         write-host using kv : $kvName in rg : $globalRg
         az keyvault set-policy --name $kvName --spn $sp.appId --certificate-permissions get getissuers list listissuers --secret-permissions get list set
         
-        write-host set keyvault policy for MS App serviceConnection
+        write-host set keyvault policy for MS App Services
 
         az keyvault set-policy --name $kvName --object-id a6621090-e704-45ec-b65f-50257f9d4dcd--certificate-permissions get getissuers list listissuers --secret-permissions get list
 
