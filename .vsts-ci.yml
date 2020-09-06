@@ -89,7 +89,7 @@ stages:
       environmentName: 'pp'
 
 - stage: deployPr
-  displayName: Deploy PR` Global - ARM Variant
+  displayName: Deploy PR Global - ARM Variant
   jobs:
   - template: templates/deploy.yml
     parameters:
