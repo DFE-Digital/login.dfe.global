@@ -15,6 +15,7 @@ trigger:
     - feature/*
 
 variables:
+- group: platform-dev
 - group: platform-global
 
 stages:
