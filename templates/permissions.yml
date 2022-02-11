@@ -12,6 +12,8 @@ parameters:
   type: string
 - name: environmentName
   type: string
+- name: platformVariableGroupName
+  type: string
 
 
 jobs:
@@ -21,6 +23,7 @@ jobs:
   pool:
     vmImage: ubuntu-latest
   variables:
+  - group: ${{parameters.platformVariableGroupName}}
   - group: platform-global
   - name: resourceGroupName
     value: ${{parameters.projectIdentifier}}${{parameters.environmentId}}-$(globalName)-$(globalSuffix)
