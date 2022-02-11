@@ -17,6 +17,9 @@ parameters:
   default: westeurope
 - name: platformVariableGroupName
   type: string
+- name: templatesBaseUri
+  type: string
+  defaultValue: 'https://raw.githubusercontent.com/DFE-Digital/login.dfe.infrastructure/master/'
 
 jobs:
 - deployment: deployGlobal${{parameters.environmentName}}
@@ -42,7 +45,7 @@ jobs:
             tags: $(Tags)
             location: ${{parameters.deploymentLocation}}
             templateFilePath: $(Build.Repository.LocalPath)/login.dfe.global/arm/storage.json
-            armParameterOverrideString: ' -skuName "Standard_LRS" -environmentId "${{parameters.environmentId}}" -environmentName "${{parameters.environmentName}}"'
+            armParameterOverrideString: '-templatesBaseUri "$(templatesBaseUri)" -skuName "Standard_LRS" -environmentId "${{parameters.environmentId}}" -environmentName "${{parameters.environmentName}}"'
             processOutputs: false
         - template: /Infrastructure/steps/deploy-template.yml@devopsTemplates
           parameters:

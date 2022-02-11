@@ -66,12 +66,10 @@
             "name": "[variables('resourceName')]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2020-10-01",
-            "tags": {
-              },
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "https://raw.githubusercontent.com/DFE-Digital/login.dfe.infrastructure/master/Shared/storage-account.json"
+                    "uri": "[concat(parameters('templatesBaseUri'), 'Shared/storage-account.json')]"
                 },
                 "parameters": {
                     "storageAccountName": {
