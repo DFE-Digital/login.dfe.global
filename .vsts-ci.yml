@@ -48,6 +48,7 @@ stages:
       tenantId: $(tenantId)
       environmentId: 't01'
       environmentName: 'test'
+      platformVariableGroupName: platform-dev
   - template: templates/permissions.yml
     parameters:
       dependencyName: deployGlobaltest
@@ -55,6 +56,7 @@ stages:
       serviceConnectionApplicationId: $(testServiceConnectionApplicationId)
       environmentId: 't01'
       environmentName: 'test'
+      platformVariableGroupName: platform-dev
 
 
 - stage: deployInt
@@ -67,6 +69,7 @@ stages:
       tenantId: $(tenantId)
       environmentId: 't03'
       environmentName: 'int'
+      platformVariableGroupName: platform-dev
   - template: templates/permissions.yml
     parameters:
       dependencyName: deployGlobalint
@@ -74,6 +77,7 @@ stages:
       serviceConnectionApplicationId: $(testServiceConnectionApplicationId)
       environmentId: 't03'
       environmentName: 'int'
+      platformVariableGroupName: platform-dev
 
 - stage: deployPp
   displayName: Deploy PP Global - ARM Variant
@@ -85,6 +89,7 @@ stages:
       tenantId: $(tenantId)
       environmentId: 't02'
       environmentName: 'pp'
+      platformVariableGroupName: platform-dev
   - template: templates/permissions.yml
     parameters:
       dependencyName: deployGlobalpp
@@ -92,6 +97,7 @@ stages:
       serviceConnectionApplicationId: $(testServiceConnectionApplicationId)
       environmentId: 't02'
       environmentName: 'pp'
+      platformVariableGroupName: platform-dev
 
 - stage: deployPr
   displayName: Deploy PR Global - ARM Variant
@@ -103,6 +109,7 @@ stages:
       tenantId: $(tenantId)
       environmentId: 'p01'
       environmentName: 'pr'
+      platformVariableGroupName: platform-dev
   - template: templates/permissions.yml
     parameters:
       dependencyName: deployGlobalpr
@@ -110,6 +117,7 @@ stages:
       serviceConnectionApplicationId: $(prodServiceConnectionApplicationId)
       environmentId: 'p01'
       environmentName: 'pr'
+      platformVariableGroupName: platform-dev
 
 
     
