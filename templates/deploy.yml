@@ -39,7 +39,7 @@ jobs:
             serviceConnection: ${{parameters.serviceConnection}}
             subscriptionId: ${{parameters.subscriptionId}}
             resourceGroupName: $(resourceGroupName)
-            tags: ${{parameters.platformVariableGroupName.Tags}}
+            tags: $(Tags)
             location: ${{parameters.deploymentLocation}}
             templateFilePath: $(Build.Repository.LocalPath)/login.dfe.global/arm/storage.json
             armParameterOverrideString: ' -skuName "Standard_LRS" -environmentId "${{parameters.environmentId}}" -environmentName "${{parameters.environmentName}}"'
@@ -50,7 +50,7 @@ jobs:
             subscriptionId: ${{parameters.subscriptionId}}
             resourceGroupName: $(resourceGroupName)
             location: ${{parameters.deploymentLocation}}
-            tags: ${{parameters.platformVariableGroupName.Tags}}
+            tags: $(Tags)
             templateFilePath: $(Build.Repository.LocalPath)/login.dfe.global/arm/keyvault.json
             armParameterOverrideString: ' -environmentId "${{parameters.environmentId}}" -tenantId "${{parameters.tenantId}}" -skuName "Standard"'
             processOutputs: false
