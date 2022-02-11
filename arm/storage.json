@@ -71,7 +71,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(parameters('templatesBaseUri'), 'Shared/storage-account.json')]"
+                    "uri": "https://raw.githubusercontent.com/DFE-Digital/login.dfe.infrastructure/master/Shared/storage-account.json"
                 },
                 "parameters": {
                     "storageAccountName": {
