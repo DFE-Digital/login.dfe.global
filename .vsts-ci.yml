@@ -28,6 +28,7 @@ stages:
       tenantId: $(tenantId)
       environmentId: 'd01'
       environmentName: 'dev'
+      platformVariableGroupName: platform-dev
   - template: templates/permissions.yml
     parameters:
       dependencyName: deployGlobaldev
@@ -35,6 +36,7 @@ stages:
       serviceConnectionApplicationId: $(devServiceConnectionApplicationId)
       environmentId: 'd01'
       environmentName: 'dev'
+      platformVariableGroupName: platform-dev
 
 - stage: deployTest
   displayName: Deploy TEST Global - ARM Variant

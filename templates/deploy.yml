@@ -15,6 +15,8 @@ parameters:
 - name: deploymentLocation
   type: string
   default: westeurope
+- name: platformVariableGroupName
+  type: string
 
 jobs:
 - deployment: deployGlobal${{parameters.environmentName}}
@@ -26,6 +28,7 @@ jobs:
     resourceGroupName: ${{parameters.projectIdentifier}}${{parameters.environmentId}}-$(globalName)-$(globalSuffix)
     globalName: signin
     globalSuffix: global
+  - group: '${{parameters.platformVariableGroupName}}'
   strategy:
     runOnce:
       deploy:
