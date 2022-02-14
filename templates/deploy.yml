@@ -44,7 +44,7 @@ jobs:
             resourceGroupName: $(resourceGroupName)
             tags: $(Tags)
             location: ${{parameters.deploymentLocation}}
-            templateFilePath: $(Build.Repository.LocalPath)/login.dfe.global/arm/storage.json
+            templateFilePath: $(Build.SourcesDirectory)/arm/storage.json
             armParameterOverrideString: '-templatesBaseUri "$(templatesBaseUri)" -skuName "Standard_LRS" -environmentId "${{parameters.environmentId}}" -environmentName "${{parameters.environmentName}}"'
             processOutputs: false
         - template: /Infrastructure/steps/deploy-template.yml@devopsTemplates
