@@ -39,7 +39,7 @@
         },
         "globalSuffix": {
             "type": "string",
-            "defaultValue": "global",
+            "defaultValue": "global1",
             "metadata": {
                 "description": "Global Project Suffix"
             }
