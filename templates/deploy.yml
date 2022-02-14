@@ -54,6 +54,6 @@ jobs:
             resourceGroupName: $(resourceGroupName)
             location: ${{parameters.deploymentLocation}}
             tags: $(Tags)
-            templateFilePath: $(Build.Repository.LocalPath)/login.dfe.global/arm/keyvault.json
+            templateFilePath: $(Build.SourcesDirectory)/arm/keyvault.json
             armParameterOverrideString: ' -environmentId "${{parameters.environmentId}}" -tenantId "${{parameters.tenantId}}" -skuName "Standard"'
             processOutputs: false
