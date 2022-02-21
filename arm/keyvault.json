@@ -100,10 +100,8 @@
                 "enabledForTemplateDeployment": true,
                 "enableSoftDelete": "[parameters('enableSoftDelete')]",
                 "enablePurgeProtection": "[parameters('enablePurgeProtection')]"
-            },
-            "resources": []
+            }
         }
     ],
-    "outputs": {
-    }
+    "outputs": {}
 }
