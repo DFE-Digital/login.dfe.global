@@ -42,16 +42,6 @@ jobs:
             serviceConnection: ${{parameters.serviceConnection}}
             subscriptionId: ${{parameters.subscriptionId}}
             resourceGroupName: $(resourceGroupName)
-            tags: $(Tags)
-            location: ${{parameters.deploymentLocation}}
-            templateFilePath: $(Build.SourcesDirectory)/arm/storage.json
-            armParameterOverrideString: '-templatesBaseUri "$(templatesBaseUri)" -skuName "Standard_LRS" -environmentId "${{parameters.environmentId}}" -environmentName "${{parameters.environmentName}}"'
-            processOutputs: false
-        - template: /Infrastructure/steps/deploy-template.yml@devopsTemplates
-          parameters:
-            serviceConnection: ${{parameters.serviceConnection}}
-            subscriptionId: ${{parameters.subscriptionId}}
-            resourceGroupName: $(resourceGroupName)
             location: ${{parameters.deploymentLocation}}
             tags: $(Tags)
             templateFilePath: $(Build.SourcesDirectory)/arm/keyvault.json
