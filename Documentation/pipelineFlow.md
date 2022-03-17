@@ -26,7 +26,7 @@ This document refers to the DevOps engineers who will maintain this pipeline.Als
     - For more information on what parameters to need for each environment check the appendix table of enviroments values 
     - What is deployed check [here](deployResources.md)
   
-2. Deploy PR Global use permissions.yml for set keyVault policies
+2. Permission stage repeats for all environments (dev, test, int, pp, pr) after each deployment stage using permissions.yml for set keyVault policies
 
 # Appendix
 
