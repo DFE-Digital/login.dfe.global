@@ -28,10 +28,13 @@ jobs:
   pool:
     vmImage: ubuntu-latest
   variables:
-    group: ${{parameters.platformVariableGroupName}}
-    resourceGroupName: ${{parameters.projectIdentifier}}${{parameters.environmentId}}-$(globalName)-$(globalSuffix)
-    globalName: signin
-    globalSuffix: global
+  - group: ${{parameters.platformVariableGroupName}}
+  - name: resourceGroupName
+    value: ${{parameters.projectIdentifier}}${{parameters.environmentId}}-$(globalName)-$(globalSuffix)
+  - name:  globalName
+    value: signin
+  - name:  globalSuffix
+    value: global
   strategy:
     runOnce:
       deploy:
