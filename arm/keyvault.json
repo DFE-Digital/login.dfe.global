@@ -79,8 +79,7 @@
     },
     "variables": {
         "baseName": "[tolower(concat(parameters('projectIdentifier'), parameters('environmentId'), '-', parameters('globalName'), '-', parameters('globalSuffix')))]",
-        "resourceName": "[concat(variables('baseName'),'-kv')]",
-        "resourceId": "[resourceId('Microsoft.Storage/storageAccounts', variables('resourceName'))]"
+        "resourceName": "[concat(variables('baseName'),'-kv')]"
     },
     "resources": [
         {
@@ -101,14 +100,8 @@
                 "enabledForTemplateDeployment": true,
                 "enableSoftDelete": "[parameters('enableSoftDelete')]",
                 "enablePurgeProtection": "[parameters('enablePurgeProtection')]"
-            },
-            "resources": []
+            }
         }
     ],
-    "outputs": {
-        "resourceId": {
-            "type": "string",
-            "value": "[variables('resourceId')]"
-        }
-    }
+    "outputs": {}
 }

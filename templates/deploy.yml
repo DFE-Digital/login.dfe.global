@@ -15,6 +15,11 @@ parameters:
 - name: deploymentLocation
   type: string
   default: westeurope
+- name: platformVariableGroupName
+  type: string
+- name: templatesBaseUri
+  type: string
+  default: 'https://raw.githubusercontent.com/DFE-Digital/login.dfe.infrastructure/master/'
 
 jobs:
 - deployment: deployGlobal${{parameters.environmentName}}
@@ -23,9 +28,13 @@ jobs:
   pool:
     vmImage: ubuntu-latest
   variables:
-    resourceGroupName: ${{parameters.projectIdentifier}}${{parameters.environmentId}}-$(globalName)-$(globalSuffix)
-    globalName: signin
-    globalSuffix: global
+  - group: ${{parameters.platformVariableGroupName}}
+  - name: resourceGroupName
+    value: ${{parameters.projectIdentifier}}${{parameters.environmentId}}-$(globalName)-$(globalSuffix)
+  - name:  globalName
+    value: signin
+  - name:  globalSuffix
+    value: global
   strategy:
     runOnce:
       deploy:
@@ -37,15 +46,7 @@ jobs:
             subscriptionId: ${{parameters.subscriptionId}}
             resourceGroupName: $(resourceGroupName)
             location: ${{parameters.deploymentLocation}}
-            templateFilePath: $(Build.Repository.LocalPath)/login.dfe.global/arm/storage.json
-            armParameterOverrideString: ' -skuName "Standard_LRS" -environmentId "${{parameters.environmentId}}"'
-            processOutputs: false
-        - template: /Infrastructure/steps/deploy-template.yml@devopsTemplates
-          parameters:
-            serviceConnection: ${{parameters.serviceConnection}}
-            subscriptionId: ${{parameters.subscriptionId}}
-            resourceGroupName: $(resourceGroupName)
-            location: ${{parameters.deploymentLocation}}
-            templateFilePath: $(Build.Repository.LocalPath)/login.dfe.global/arm/keyvault.json
+            tags: $(Tags)
+            templateFilePath: $(Build.SourcesDirectory)/arm/keyvault.json
             armParameterOverrideString: ' -environmentId "${{parameters.environmentId}}" -tenantId "${{parameters.tenantId}}" -skuName "Standard"'
             processOutputs: false
